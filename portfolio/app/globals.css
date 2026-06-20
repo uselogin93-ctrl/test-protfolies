@@ -1,0 +1,657 @@
+@import url('https://api.fontshare.com/v2/css?f[]=clash-grotesk@300,400,500,600,700&f[]=satoshi@300,400,500,700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-space: 'Clash Grotesk', sans-serif;
+  --font-inter: 'Satoshi', sans-serif;
+  --bg: #0C0C0C;
+  --surface: #141414;
+  --surface-light: #1C1C1C;
+  --accent: #E8553A;
+  --accent-warm: #D4A574;
+  --text-primary: #F0EDE8;
+  --text-secondary: #B0ADA8;
+  --muted: #8A8A8A;
+  --border: rgba(255,255,255,0.07);
+  --ease-custom: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text-primary);
+  font-family: 'Satoshi', sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Noise overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.03;
+}
+
+/* Dot grid background */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Clash Grotesk', sans-serif;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+/* Selection */
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* Utility classes */
+.text-accent { color: var(--accent); }
+.text-warm { color: var(--accent-warm); }
+.text-muted { color: var(--muted); }
+.text-secondary { color: var(--text-secondary); }
+.bg-surface { background: var(--surface); }
+.bg-surface-light { background: var(--surface-light); }
+.border-custom { border: 1px solid var(--border); }
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent), var(--accent-warm));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Section wrapper */
+.section-wrapper {
+  position: relative;
+  z-index: 1;
+  padding: 6rem 0;
+}
+
+/* Container */
+.container-custom {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+@media (max-width: 768px) {
+  .container-custom {
+    padding: 0 1.25rem;
+  }
+  .section-wrapper {
+    padding: 4rem 0;
+  }
+}
+
+/* Animated underline for nav links */
+.nav-link {
+  position: relative;
+  transition: color 0.3s var(--ease-custom);
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.35s var(--ease-custom);
+}
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+.nav-link:hover {
+  color: var(--accent);
+}
+
+/* Skill badge */
+.skill-badge {
+  background: var(--surface-light);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 0.4rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.3s var(--ease-custom);
+}
+.skill-badge:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* Card hover */
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.4s var(--ease-custom), border-color 0.3s ease, box-shadow 0.4s var(--ease-custom);
+}
+.project-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(232, 85, 58, 0.3);
+  box-shadow: 0 20px 60px rgba(232, 85, 58, 0.12);
+}
+
+/* Glow button */
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  padding: 0.85rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  transition: all 0.3s var(--ease-custom);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.15);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease-custom);
+}
+.btn-primary:hover::before {
+  transform: scaleX(1);
+}
+.btn-primary:hover {
+  box-shadow: 0 0 30px rgba(232, 85, 58, 0.45);
+  transform: translateY(-2px);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-primary);
+  padding: 0.85rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  transition: all 0.3s var(--ease-custom);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--border);
+  cursor: pointer;
+}
+.btn-ghost:hover {
+  background: var(--surface-light);
+  border-color: rgba(255,255,255,0.2);
+  transform: translateY(-2px);
+}
+
+/* Tech tag */
+.tech-tag {
+  background: rgba(232, 85, 58, 0.1);
+  color: var(--accent);
+  border: 1px solid rgba(232, 85, 58, 0.2);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+/* Section label */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(232, 85, 58, 0.1);
+  color: var(--accent);
+  border: 1px solid rgba(232, 85, 58, 0.25);
+  padding: 0.35rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+/* Marquee */
+.marquee-wrapper {
+  overflow: hidden;
+  position: relative;
+}
+.marquee-wrapper::before,
+.marquee-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 120px;
+  z-index: 2;
+}
+.marquee-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg), transparent);
+}
+.marquee-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg), transparent);
+}
+.marquee-track {
+  display: flex;
+  gap: 2rem;
+  animation: marquee 25s linear infinite;
+  width: max-content;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Loading screen */
+.loader-speed-line {
+  position: absolute;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--accent), transparent);
+  animation: speedLine 1.2s linear infinite;
+  opacity: 0;
+}
+@keyframes speedLine {
+  0% { transform: scaleX(0) translateX(-100%); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: scaleX(1) translateX(100%); opacity: 0; }
+}
+
+/* Timeline */
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -1.6rem;
+  top: 0.5rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 3px rgba(232, 85, 58, 0.2);
+}
+
+/* Orb */
+.orb-ring {
+  border: 1px solid rgba(232, 85, 58, 0.2);
+  border-radius: 50%;
+  animation: orb-rotate 12s linear infinite;
+}
+.orb-ring:nth-child(2) {
+  border-color: rgba(212, 165, 116, 0.2);
+  animation-direction: reverse;
+  animation-duration: 18s;
+}
+@keyframes orb-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Glow effect */
+.glow-dot {
+  background: var(--accent);
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.15;
+  position: absolute;
+  pointer-events: none;
+}
+
+/* Input styles */
+.form-input {
+  background: var(--surface-light);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  padding: 0.9rem 1.2rem;
+  border-radius: 10px;
+  width: 100%;
+  font-family: 'Satoshi', sans-serif;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  outline: none;
+}
+.form-input::placeholder {
+  color: var(--muted);
+}
+.form-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(232, 85, 58, 0.1);
+}
+
+textarea.form-input {
+  resize: vertical;
+  min-height: 140px;
+}
+
+/* Card Swap Styles */
+.card-swap-container {
+  perspective: 1200px;
+  position: relative;
+  width: 100%;
+  height: 480px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-swap-item {
+  position: absolute;
+  width: 340px;
+  height: 420px;
+  border-radius: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+  padding: 2.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-swap-item:hover {
+  border-color: rgba(232, 85, 58, 0.4);
+  box-shadow: 0 30px 60px rgba(232, 85, 58, 0.15);
+}
+
+.card-swap-item.active {
+  border-color: rgba(232, 85, 58, 0.3);
+}
+
+/* Hyper Speed Loader lines */
+.loader-line-horizontal {
+  position: absolute;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  width: 150px;
+  opacity: 0.6;
+}
+
+/* Helper hover classes to replace JS event handlers in Server Components */
+.hover-lift {
+  transition: transform 0.3s var(--ease-custom), border-color 0.3s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-2px) !important;
+  border-color: rgba(232, 85, 58, 0.3) !important;
+}
+
+.hover-slide-right {
+  transition: transform 0.3s var(--ease-custom), border-color 0.3s ease;
+}
+.hover-slide-right:hover {
+  transform: translateX(4px) !important;
+  border-color: rgba(232, 85, 58, 0.3) !important;
+}
+
+.hover-slide-right-warm {
+  transition: transform 0.3s var(--ease-custom), border-color 0.3s ease;
+}
+.hover-slide-right-warm:hover {
+  transform: translateX(4px) !important;
+  border-color: rgba(212, 165, 116, 0.3) !important;
+}
+
+.hover-slide-left {
+  transition: transform 0.3s var(--ease-custom), border-color 0.3s ease;
+}
+.hover-slide-left:hover {
+  transform: translateX(-3px) !important;
+  border-color: rgba(232, 85, 58, 0.3) !important;
+}
+
+.hover-slide-left-warm {
+  transition: transform 0.3s var(--ease-custom), border-color 0.3s ease;
+}
+.hover-slide-left-warm:hover {
+  transform: translateX(-3px) !important;
+  border-color: rgba(212, 165, 116, 0.3) !important;
+}
+
+.hover-slide-right-next {
+  transition: transform 0.3s var(--ease-custom), border-color 0.3s ease;
+}
+.hover-slide-right-next:hover {
+  transform: translateX(3px) !important;
+  border-color: rgba(232, 85, 58, 0.3) !important;
+}
+
+.hover-slide-right-next-warm {
+  transition: transform 0.3s var(--ease-custom), border-color 0.3s ease;
+}
+.hover-slide-right-next-warm:hover {
+  transform: translateX(3px) !important;
+  border-color: rgba(212, 165, 116, 0.3) !important;
+}
+
+.footer-link-hover {
+  transition: color 0.3s ease;
+}
+.footer-link-hover:hover {
+  color: var(--accent) !important;
+}
+
+/* ============================================================
+   KEYFRAMES — extracted from component styled-jsx blocks
+   ============================================================ */
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes scroll-dot {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(12px); opacity: 0; }
+}
+
+@keyframes speedLine {
+  0% {
+    transform: scaleX(0.2) translateX(-200%);
+    opacity: 0;
+  }
+  40% { opacity: 0.8; }
+  70% { opacity: 0.8; }
+  100% {
+    transform: scaleX(1.5) translateX(250%);
+    opacity: 0;
+  }
+}
+
+@keyframes floatLoader {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+/* ============================================================
+   RESPONSIVE OVERRIDES — extracted from component styled-jsx
+   ============================================================ */
+
+/* Navbar: hide desktop nav / show hamburger on mobile */
+.desktop-nav { display: flex; }
+.mobile-menu-btn { display: none; }
+
+@media (max-width: 768px) {
+  .desktop-nav { display: none !important; }
+  .mobile-menu-btn { display: flex !important; }
+
+  /* HeroSection: stack two-column hero layout */
+  .hero-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .hero-orb-col {
+    display: none !important;
+  }
+
+  /* FeaturedProjects bento grid: stack to column */
+  .bento-grid {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+}
+
+/* CardSwap responsive: stack at 900px */
+@media (max-width: 900px) {
+  .cardswap-grid {
+    grid-template-columns: 1fr !important;
+    gap: 3rem !important;
+  }
+  .card-swap-container {
+    height: 440px !important;
+  }
+}
+
+/* Contact page: stack two-column form layout */
+@media (max-width: 640px) {
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ============================================================
+   HOVER UTILITY CLASSES — replacing JS event handlers
+   used in Server Component pages
+   ============================================================ */
+
+/* Breadcrumb link */
+.breadcrumb-link {
+  color: var(--muted);
+  transition: color 0.2s ease;
+}
+.breadcrumb-link:hover {
+  color: var(--text-primary) !important;
+}
+
+/* Card: lift up + accent border (certifications, skills cards) */
+.hover-lift-accent {
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+.hover-lift-accent:hover {
+  border-color: rgba(232, 85, 58, 0.3) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Card: slide left + accent border (prev nav) */
+.hover-slide-left-accent {
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+.hover-slide-left-accent:hover {
+  border-color: rgba(232, 85, 58, 0.3) !important;
+  transform: translateX(-3px) !important;
+}
+
+/* Card: slide right + accent border (next nav) */
+.hover-slide-right-accent {
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+.hover-slide-right-accent:hover {
+  border-color: rgba(232, 85, 58, 0.3) !important;
+  transform: translateX(3px) !important;
+}
+
+/* Card: slide right by 4px + accent border (education timeline) */
+.hover-slide-right-accent-lg {
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+.hover-slide-right-accent-lg:hover {
+  border-color: rgba(232, 85, 58, 0.3) !important;
+  transform: translateX(4px) !important;
+}
+
+/* Card: lift up + warm border (about skill categories) */
+.hover-lift-warm {
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+.hover-lift-warm:hover {
+  border-color: rgba(212, 165, 116, 0.3) !important;
+  transform: translateY(-3px) !important;
+}
+
+/* Card: slide left + warm border (analytics prev nav) */
+.hover-slide-left-warm {
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+.hover-slide-left-warm:hover {
+  border-color: rgba(212, 165, 116, 0.3) !important;
+  transform: translateX(-3px) !important;
+}
+
+/* Card: slide right + warm border (analytics next nav) */
+.hover-slide-right-warm {
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+.hover-slide-right-warm:hover {
+  border-color: rgba(212, 165, 116, 0.3) !important;
+  transform: translateX(3px) !important;
+}
+
+
